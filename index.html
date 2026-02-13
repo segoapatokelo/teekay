@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    min-height:100vh;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(180deg,#fff1f5,#fde2e8);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    color:#444;
+    padding:20px;
+}
+
+/* Header */
+header{
+    text-align:center;
+    margin-top:60px;
+    animation:fadeIn 2s ease;
+}
+header h1{
+    font-family:'Great Vibes',cursive;
+    font-size:3rem;
+    color:#e2557b;
+}
+header p{margin-top:10px;opacity:.8}
+
+/* Envelope */
+.envelope-container{margin-top:50px;perspective:1000px}
+.envelope{
+    width:280px;height:180px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+    position:relative;
+    cursor:pointer;
+}
+.flap{
+    position:absolute;
+    inset:0;
+    background:#ffe1ea;
+    clip-path:polygon(0 0,100% 0,50% 55%);
+    transform-origin:top;
+    transition:transform 1s ease;
+    border-radius:12px 12px 0 0;
+}
+.envelope.open .flap{transform:rotateX(180deg)}
+.envelope span{
+    position:absolute;
+    bottom:18px;
+    width:100%;
+    text-align:center;
+    color:#e2557b;
+}
+
+/* Password */
+.password-box{
+    display:none;
+    margin-top:30px;
+    text-align:center;
+    animation:fadeIn 1s ease;
+}
+.password-box input{
+    padding:12px;
+    width:220px;
+    border-radius:25px;
+    border:1px solid #ddd;
+    text-align:center;
+    outline:none;
+}
+.password-box button{
+    margin-top:12px;
+    padding:10px 25px;
+    border:none;
+    border-radius:25px;
+    background:#e2557b;
+    color:#fff;
+    cursor:pointer;
+}
+
+/* Heartbeat animation */
+@keyframes heartbeat{
+    0%{transform:scale(1)}
+    25%{transform:scale(1.1)}
+    40%{transform:scale(1)}
+    60%{transform:scale(1.15)}
+    100%{transform:scale(1)}
+}
+.heartbeat{animation:heartbeat .6s}
+
+/* Letter */
+.letter{
+    display:none;
+    max-width:700px;
+    width:100%;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 30px 60px rgba(226,85,123,.25);
+    margin-top:40px;
+    animation:slideUp 1.2s ease forwards;
+}
+.letter h2{
+    text-align:center;
+    font-family:'Great Vibes',cursive;
+    font-size:2.3rem;
+    color:#e2557b;
+    margin-bottom:15px;
+}
+.photo{
+    width:110px;height:110px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+.photo img{width:100%;height:100%;object-fit:cover}
+.letter p{
+    line-height:1.8;
+    font-size:1rem;
+    margin-bottom:15px;
+}
+.signature{
+    margin-top:25px;
+    text-align:right;
+    font-family:'Great Vibes',cursive;
+    font-size:1.8rem;
+    color:#e2557b;
+}
+
+footer{margin:40px 0;font-size:.85rem;opacity:.6}
+
+/* Animations */
+@keyframes slideUp{
+    from{opacity:0;transform:translateY(40px)}
+    to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* Mobile polish */
+@media(max-width:480px){
+    header h1{font-size:2.4rem}
+    .letter{padding:25px 20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>To My Beautiful Love ❤️</h1>
+<p>Tap the letter… it’s just for you</p>
+</header>
+
+<div class="envelope-container">
+<div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <span>Open Me 💌</span>
+</div>
+</div>
+
+<div class="password-box" id="passwordBox">
+<p>Enter the secret password 💕</p>
+<input type="password" id="password" placeholder="Our surname lol">
+<br>
+<button id="unlockBtn" onclick="checkPassword()">Unlock</button>
+</div>
+
+<section class="letter" id="letter">
+<h2>My Love Letter</h2>
+
+<div class="photo">
+    <img src="C:\Users\segoa\Pictures\tk2.jpeg" alt="My Love">
+</div>
+
+<div id="typedText"></div>
+
+<div class="signature">Forever Yours, Tokelo ❤️</div>
+</section>
+
+<footer>Made just for you, Mothowaka ;)</footer>
+
+<script>
+const SECRET_PASSWORD = "Segoapa";
+
+const letterText = [
+"Happy Valentine’s Day, my beautiful heart ❤️.",
+"Today is a celebration of love, and there is no love ii’d rather celebrate than ours.",
+"You are the best thing that has ever happened to me, and every day with you feels like a gift ii never take for granted.",
+"You have a way of making my world brighter just by being in it.",
+"Your smile still gives me butterflies, your voice calms my soul and your love has become my safe place.",
+"With you, ii’ve learned what real love feels like❤️deep, patient, comforting and full of joy.",
+"ii love the way you care, the way you laugh and the way your heart shines even in the smallest moments.",
+"You inspire me to be better, to love deeper and to dream bigger. Being yours is something ii am endlessly proud of.",
+"On this Valentine’s Day, ii want you to know that my heart is yours❤️today, tomorrow and always.",
+"No matter what life brings, ii choose you over and over again.",
+"Thank you for loving me, for believing in me and for being my person.",
+"Happy Valentine’s Day, my love. ii am so grateful for you, and ii can’t wait to keep building a beautiful future together.",
+
+"ii ❤️ L O V E ❤️ Y O U U U ❤️ S O O O ❤️ M U C H H H H ❤️ B A B Y Y Y Y Y Y Y Y ❤️"
+];
+
+function openEnvelope(){
+    document.querySelector('.envelope').classList.add('open');
+    setTimeout(()=>{
+        document.querySelector('.envelope-container').style.display="none";
+        document.getElementById('passwordBox').style.display="block";
+    },900);
+}
+
+function checkPassword(){
+    const input=document.getElementById('password').value;
+    const btn=document.getElementById('unlockBtn');
+
+    if(input===SECRET_PASSWORD){
+        document.getElementById('passwordBox').style.display="none";
+        document.getElementById('letter').style.display="block";
+        startTypewriter();
+    }else{
+        btn.classList.remove("heartbeat");
+        void btn.offsetWidth;
+        btn.classList.add("heartbeat");
+        alert("Wrong password 💔 Try again");
+    }
+}
+
+/* Typewriter effect */
+function startTypewriter(){
+    const container=document.getElementById("typedText");
+    let line=0, char=0;
+    const speed=40;
+
+    function type(){
+        if(line < letterText.length){
+            if(char < letterText[line].length){
+                container.innerHTML += letterText[line].charAt(char);
+                char++;
+                setTimeout(type,speed);
+            }else{
+                container.innerHTML += "<br><br>";
+                line++;
+                char=0;
+                setTimeout(type,300);
+            }
+        }
+    }
+    type();
+}
+</script>
+
+</body>
+</html>
